@@ -58,13 +58,27 @@ def main(site, login, profile = None):
         print("An error occurred!", file=sys.stderr)
         sys.exit(1)
 
+def print_login(profile):
+    user_profile = load_profile(profile)
+    if user_profile is None:
+        print("No such profile: {}".format(profile))
+        sys.exit(1)
+
+    if 'login' in user_profile:
+        print(user_profile['login'])
+    else:
+        print("There is no 'login' field in configuration: {}".format(profile))
+        sys.exit(2)
+
 if __name__ == '__main__':
     argc = len(sys.argv)
-    if argc == 1 or argc > 4:
-        print("Usage: {} [profile] [website login]".format(sys.argv[0]),
+    if argc == 1 or argc > 5:
+        print("Usage: {} [--login] [profile] [website login]".format(sys.argv[0]),
               file=sys.stderr)
         sys.exit(1)
-    if argc == 3:
+    if sys.argv[1] == "--login" and argc >= 3:
+        print_login(sys.argv[2])
+    elif argc == 3:
         main(*sys.argv[1:])
     elif argc == 4:
         main(sys.argv[2], sys.argv[3], sys.argv[1])

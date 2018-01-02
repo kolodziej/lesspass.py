@@ -32,6 +32,11 @@ Third way:
 
 Default profile is used.
 
+You can also fetch only login (it is very useful in case of services where
+logins are generated automatically and are hard to remember):
+
+`cli.py --login profile`
+
 ### CLI Installation
 
 The simplest way to install CLI is to make symlink in one of directories from
